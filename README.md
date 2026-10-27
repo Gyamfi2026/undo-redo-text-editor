@@ -1,96 +1,68 @@
-# StackWrite: Undo/Redo Text Editor
+# StackWrite — Undo/Redo Text Editor
 
-A simple command-line text editor built in Python to demonstrate a real-world use of the **stack** data structure. It implements Undo and Redo using the **Last In, First Out (LIFO)** principle.
+StackWrite is a responsive, browser-based text editor that demonstrates a real-world use of the **stack** data structure. It is built with **HTML, CSS, and JavaScript**.
 
 ## Real-world application
 
-Text editors and word processors commonly provide Undo and Redo features. If a user makes several changes, Undo reverses the most recent change first. Redo restores a change that was undone.
+Text editors and word processors provide Undo and Redo features. Undo reverses the most recent edit, while Redo restores an edit that was undone. Stacks are a natural fit because they follow the **Last In, First Out (LIFO)** principle.
 
 ## Features
 
-- Enter or replace the current text.
-- Undo the most recent edit.
-- Redo a previously undone edit.
-- Display the current text.
-- Clear the text and undo the clear operation.
-- Handle empty undo and redo stacks safely.
-- Unit tests using Python's built-in `unittest` framework.
+- Responsive, clean writing interface.
+- Undo and Redo buttons.
+- Keyboard shortcuts: **Ctrl/Cmd + Z** for Undo, **Ctrl/Cmd + Shift + Z** or **Ctrl/Cmd + Y** for Redo.
+- Live word and character counts.
+- Visual displays of the Undo and Redo stacks.
+- Clear text with the option to undo the clear.
+- Light/dark theme toggle.
+- Accessible labels and helpful messages.
+- No package installation or build tools required.
 
-## Requirements
+## Run the application
 
-- Python 3.8 or newer
-- No third-party packages required
+1. Open this repository on GitHub and download the ZIP, or clone it.
+2. Keep `index.html`, `styles.css`, and `script.js` in the same folder.
+3. Open `index.html` in a modern web browser.
 
-## How to run
-
-1. Clone or download this repository.
-2. Open a terminal in the project folder.
-3. Run:
-
-   ```bash
-   python main.py
-   ```
-
-   On some systems, use `python3 main.py`.
-
-4. Select an option from the menu and follow the prompts.
-
-## Example
-
-Suppose you enter these text states in order:
-
-1. `Hello`
-2. `Hello World`
-3. `Hello World!`
-
-Selecting **Undo** changes the current text from `Hello World!` to `Hello World`. Selecting Undo again restores `Hello`. Selecting **Redo** returns the text to `Hello World`.
-
-## How stacks are used
-
-The program uses two Python lists as stacks:
-
-- **Undo stack:** stores previous text states.
-- **Redo stack:** stores states that have been undone and can be restored.
-
-The `append()` method pushes a state onto a stack, while `pop()` removes the most recently added state. This is LIFO: Last In, First Out.
-
-When a new edit is made after an undo, the redo stack is cleared because the previous redo path is no longer valid.
+You can also use the VS Code **Live Server** extension to preview the app locally. The app runs entirely in your browser.
 
 ## Project structure
 
 ```text
 undo-redo-text-editor/
-├── main.py
-├── tests/
-│   └── test_text_editor.py
-├── README.md
-├── requirements.txt
+├── index.html   # Page structure and accessible controls
+├── styles.css   # Responsive styling and light/dark themes
+├── script.js    # Undo/redo stack logic and interface behaviour
+├── README.md    # Project overview and instructions
 └── .gitignore
 ```
 
-## Run the tests
+## How stacks are used
 
-From the project folder, run:
+The JavaScript application uses two arrays as stacks:
 
-```bash
-python -m unittest discover -s tests -v
-```
+- **Undo stack:** stores earlier text states.
+- **Redo stack:** stores states that were undone and may be restored.
+
+When the text changes, the previous state is pushed onto the Undo stack and the Redo stack is cleared. Undo pushes the current text onto the Redo stack, then pops the latest state from the Undo stack. Redo does the reverse.
+
+The arrays' `push()` and `pop()` methods implement the LIFO behaviour. The interface visualises the most recent states at the top of each stack.
 
 ## Complexity
 
-The stack push and pop operations are O(1) amortised and O(1), respectively. These estimates describe stack operations; storing or copying large text values may require additional time and memory.
+Stack push and pop operations are O(1) amortised and O(1), respectively. These estimates apply to the stack operations; handling and displaying text takes time proportional to the text length.
 
 ## Limitations and possible improvements
 
-This is an educational example that stores complete text states, rather than individual editing commands. A production text editor may use edit operations or more advanced history mechanisms to reduce memory usage. Possible extensions include saving text to a file, limiting history size, and adding a graphical user interface.
+This is an educational project that stores text states in the browser session. Refreshing the page clears the editing history. Future improvements could include saving documents, persisting history with local storage, limiting the history size, and adding automated browser tests.
 
 ## Learning objectives
 
 - Explain the stack and the LIFO principle.
 - Demonstrate push and pop operations.
-- Apply stacks to a practical software feature.
-- Test edge cases such as undoing or redoing when history is empty.
+- Apply stacks to a practical Undo/Redo feature.
+- Connect data-structure logic to a user-friendly web interface.
 
 ## License
 
-This project is provided for educational use. Add a license if you intend to distribute or reuse it under specific terms.
+Provided for educational use. Add a license file if you plan to distribute the project under specific terms.
