@@ -23,7 +23,7 @@
   function updateStats() {
     const text = editor.value;
     const trimmed = text.trim();
-    const words = trimmed ? trimmed.split(/\\s+/).length : 0;
+    const words = trimmed ? trimmed.split(/\s+/).length : 0;
     wordCount.textContent = words + (words === 1 ? ' word' : ' words');
     charCount.textContent = text.length + (text.length === 1 ? ' character' : ' characters');
   }
@@ -43,7 +43,7 @@
       const tag = document.createElement('small');
       tag.textContent = index === visible.length - 1 ? 'TOP' : String(index + 1).padStart(2, '0');
       const preview = document.createElement('span');
-      preview.textContent = state.replace(/\\s+/g, ' ').trim() || '(empty text state)';
+      preview.textContent = state.replace(/\s+/g, ' ').trim() || '(empty text state)';
       block.title = state || '(empty text state)';
       block.append(tag, preview);
       container.appendChild(block);
